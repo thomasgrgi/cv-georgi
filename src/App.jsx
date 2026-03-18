@@ -51,16 +51,16 @@ export default function Portfolio() {
     }, 300); // Durée de l'animation de sortie
   };
 
-  // Composant Lien externe
-  const ExtLink = ({ href, children }) => (
+  // Composant Lien externe customisable (couleur héritable)
+  const ExtLink = ({ href, children, className = "text-emerald-400 hover:text-emerald-300" }) => (
     <a 
       href={href} 
       target="_blank" 
       rel="noopener noreferrer" 
-      className="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 underline decoration-emerald-500/30 hover:decoration-emerald-400 underline-offset-4 transition-all group"
+      className={`inline-flex items-center gap-1 underline decoration-emerald-500/30 hover:decoration-emerald-400 underline-offset-4 transition-all group ${className}`}
     >
       {children}
-      <ExternalLink size={14} className="opacity-50 group-hover:opacity-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+      <ExternalLink size={14} className="opacity-50 group-hover:opacity-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform shrink-0" />
     </a>
   );
 
@@ -75,8 +75,14 @@ export default function Portfolio() {
       <nav className="sticky top-0 z-50 bg-[#050505]/90 backdrop-blur-md border-b border-slate-800/50 p-4">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2 font-mono text-sm">
-            <Terminal size={18} className="text-emerald-500" />
-            <span className="text-slate-500">thomas@georgi:</span>
+            <button 
+              onClick={() => changeView('home')} 
+              className="flex items-center gap-2 group cursor-pointer focus:outline-none"
+              title="Retour à l'accueil"
+            >
+              <Terminal size={18} className="text-emerald-500 group-hover:text-emerald-400 transition-colors" />
+              <span className="text-slate-500 group-hover:text-slate-300 transition-colors">thomas@georgi:</span>
+            </button>
             <span className="text-blue-400">~/portfolio</span>
             {activeView !== 'home' && (
               <span className="text-emerald-400">/{activeView}</span>
@@ -119,7 +125,7 @@ export default function Portfolio() {
               <a href="tel:+33652172023" className="flex items-center gap-2 hover:text-emerald-400 transition-colors bg-slate-900/50 px-4 py-2 rounded-lg border border-slate-800 hover:border-emerald-500/50 hover:bg-slate-900">
                 <Phone size={16} /> +33 6 52 17 20 23
               </a>
-              <a href="#" className="flex items-center gap-2 hover:text-emerald-400 transition-colors bg-slate-900/50 px-4 py-2 rounded-lg border border-slate-800 hover:border-emerald-500/50 hover:bg-slate-900">
+              <a href="https://www.linkedin.com/in/thomasgeorgi/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-emerald-400 transition-colors bg-slate-900/50 px-4 py-2 rounded-lg border border-slate-800 hover:border-emerald-500/50 hover:bg-slate-900">
                 <Linkedin size={16} /> LinkedIn
               </a>
             </div>
@@ -133,8 +139,7 @@ export default function Portfolio() {
               { id: 'experience', title: 'Expérience Pro', icon: <Briefcase size={32}/>, color: 'from-cyan-500/20 to-cyan-900/20', border: 'hover:border-cyan-500', text: 'group-hover:text-cyan-400', desc: 'Naval Group, CODEVSI, Fly Copter' },
               { id: 'competences', title: 'Compétences', icon: <Code size={32}/>, color: 'from-blue-500/20 to-blue-900/20', border: 'hover:border-blue-500', text: 'group-hover:text-blue-400', desc: 'Langages, Web, 3D, Base de données' },
               { id: 'palmares', title: 'Palmarès & Asso', icon: <Award size={32}/>, color: 'from-purple-500/20 to-purple-900/20', border: 'hover:border-purple-500', text: 'group-hover:text-purple-400', desc: 'Olympiades, AWS, PyRat, BDA' },
-              { id: 'interets', title: 'Centres d\'intérêt', icon: <Activity size={32}/>, color: 'from-rose-500/20 to-rose-900/20', border: 'hover:border-rose-500', text: 'group-hover:text-rose-400', desc: 'Musique, Sport, Audiovisuel, Plongée' },
-              { id: 'contact', title: 'Informations', icon: <MapPin size={32}/>, color: 'from-amber-500/20 to-amber-900/20', border: 'hover:border-amber-500', text: 'group-hover:text-amber-400', desc: '06560 Valbonne, Permis B/Côtier' }
+              { id: 'interets', title: 'Centres d\'intérêt & Infos', icon: <Activity size={32}/>, color: 'from-rose-500/20 to-rose-900/20', border: 'hover:border-rose-500', text: 'group-hover:text-rose-400', desc: 'Musique, Sport, Audiovisuel, Localisation...' }
             ].map((item) => (
               <button
                 key={item.id}
@@ -175,21 +180,36 @@ export default function Portfolio() {
                 <div className="bg-slate-900/60 p-6 rounded-xl border border-slate-800 group-hover:border-emerald-500/50 transition-colors">
                   <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
                     <div>
-                      <h3 className="text-xl font-bold text-white"><ExtLink href="#">IMT ATLANTIQUE</ExtLink></h3>
-                      <p className="text-emerald-400 font-mono text-sm mt-1">3e école d'ingénieur en France (l'Etudiant 2026)</p>
+                      <h3 className="text-xl font-bold text-white">
+                        <ExtLink href="https://www.imt-atlantique.fr/fr" className="text-white hover:text-emerald-300">IMT ATLANTIQUE</ExtLink>
+                      </h3>
+                      <p className="text-emerald-400 font-mono text-sm mt-1">
+                        3e école d'ingénieur en France (<ExtLink href="https://www.letudiant.fr/classements/classement-des-ecoles-d-ingenieurs.html" className="text-emerald-400 hover:text-emerald-300">l'Etudiant 2026</ExtLink>)
+                      </p>
                     </div>
                     <span className="text-slate-400 text-sm font-mono bg-slate-950 px-3 py-1 rounded-md border border-slate-800 mt-2 md:mt-0 inline-block">2023 - 2026</span>
                   </div>
                   <p className="text-slate-300 mb-4">Formation ingénieur en informatique, diplôme pour 2026. Spécialisation en :</p>
-                  <ul className="space-y-2 text-sm text-slate-300 mb-4">
-                    <li className="flex gap-2"><ChevronRight size={16} className="text-emerald-500 shrink-0"/> <span><strong>DCL</strong> (Développement Collaboratif de Logiciels)</span></li>
-                    <li className="flex gap-2"><ChevronRight size={16} className="text-emerald-500 shrink-0"/> <span><strong>ILSD</strong> (Ingénierie logicielle des systèmes distribués)</span></li>
-                    <li className="flex gap-2"><ChevronRight size={16} className="text-emerald-500 shrink-0"/> <span><strong>RVSI</strong> (Réalité Virtuelle & Systèmes Interactifs)</span></li>
+                  <ul className="space-y-2 text-sm text-slate-300 mb-6">
+                    <li className="flex gap-2">
+                      <ChevronRight size={16} className="text-emerald-500 shrink-0"/> 
+                      <span><strong><ExtLink href="https://moodle.imt-atlantique.fr/pluginfile.php/134377/mod_folder/content/0/TAF%20infos%20brest/DCL2026.pdf">DCL</ExtLink></strong> (Développement Collaboratif de Logiciels)</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <ChevronRight size={16} className="text-emerald-500 shrink-0"/> 
+                      <span><strong><ExtLink href="https://moodle.imt-atlantique.fr/pluginfile.php/134377/mod_folder/content/0/TAF%20infos%20brest/ILSD2026.pdf">ILSD</ExtLink></strong> (Ingénierie logicielle des systèmes distribués)</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <ChevronRight size={16} className="text-emerald-500 shrink-0"/> 
+                      <span><strong><ExtLink href="https://moodle.imt-atlantique.fr/pluginfile.php/134377/mod_folder/content/0/TAF%20infos%20brest/colorationsInformatiques2026.pdf">RVSI</ExtLink></strong> (Réalité Virtuelle & Systèmes Interactifs)</span>
+                    </li>
                   </ul>
-                  <div className="inline-flex items-center gap-2 bg-blue-900/20 text-blue-300 text-sm px-4 py-2 rounded-lg border border-blue-800/50">
-                    <Globe size={16} />
-                    1 semestre en échange universitaire à BINUS International, Jakarta
-                  </div>
+                  
+                  <a href="https://international.binus.ac.id/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-blue-900/20 hover:bg-blue-900/40 text-blue-300 text-sm px-4 py-2 rounded-lg border border-blue-800/50 hover:border-blue-500/50 transition-all group w-full md:w-auto">
+                    <Globe size={16} className="group-hover:animate-pulse shrink-0" />
+                    <span>1 semestre en échange universitaire à BINUS International, Jakarta</span>
+                    <ExternalLink size={14} className="opacity-50 group-hover:opacity-100 transition-opacity ml-1 shrink-0" />
+                  </a>
                 </div>
               </div>
 
@@ -200,13 +220,15 @@ export default function Portfolio() {
                 </div>
                 <div className="bg-slate-900/40 p-6 rounded-xl border border-slate-800 group-hover:border-slate-700 transition-colors">
                   <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
-                    <h3 className="text-lg font-bold text-white">LYCÉE SAINT-LOUIS (PARIS VI)</h3>
+                    <h3 className="text-lg font-bold text-white">
+                      <ExtLink href="https://pia.ac-paris.fr/serail/jcms/s1_2081847/fr/presentation" className="text-white hover:text-emerald-300">LYCÉE SAINT-LOUIS (PARIS VI)</ExtLink>
+                    </h3>
                     <span className="text-slate-500 text-sm font-mono mt-1 md:mt-0">2021 - 2023</span>
                   </div>
                   <p className="text-slate-300 text-sm mb-2">Classe préparatoire aux grandes écoles (CPGE)</p>
                   <ul className="space-y-1 text-sm text-slate-400">
-                    <li>• <strong>MP2I</strong> (Mathématiques, Physique, Sciences d'Ingénieur, Informatique)</li>
-                    <li>• <strong>MPI*</strong> (Mathématiques, Physique, Informatique)</li>
+                    <li>• <strong><ExtLink href="https://mp2i-saint-louis.github.io/">MP2I</ExtLink></strong> (Mathématiques, Physique, Sciences d'Ingénieur, Informatique)</li>
+                    <li>• <strong><ExtLink href="https://etudiant.lefigaro.fr/annuaire/37276-prepa-mpi-2eme-annee/">MPI*</ExtLink></strong> (Mathématiques, Physique, Informatique)</li>
                   </ul>
                   <p className="text-emerald-400 text-sm font-mono mt-3">Admis concours Mines-Ponts</p>
                 </div>
@@ -245,7 +267,9 @@ export default function Portfolio() {
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-3 bg-cyan-950 text-cyan-400 rounded-lg"><Monitor size={24}/></div>
                   <div>
-                    <h3 className="text-xl font-bold text-white">Projet Fly Copter</h3>
+                    <h3 className="text-xl font-bold text-white">
+                      <ExtLink href="https://www.flycopter-project.fr/" className="text-white hover:text-cyan-300">Projet Fly Copter</ExtLink>
+                    </h3>
                     <p className="text-cyan-400 text-sm font-mono">Réalité Virtuelle (Unity VR)</p>
                   </div>
                 </div>
@@ -257,7 +281,9 @@ export default function Portfolio() {
                   <div className="flex items-center gap-3">
                     <div className="p-3 bg-blue-950 text-blue-400 rounded-lg"><Code size={24}/></div>
                     <div>
-                      <h3 className="text-xl font-bold text-white">Projet CODEVSI</h3>
+                      <h3 className="text-xl font-bold text-white">
+                        <ExtLink href="https://cv.swargus.com/assets/RapportProjetCODEV.pdf" className="text-white hover:text-blue-300">Projet CODEVSI</ExtLink>
+                      </h3>
                       <p className="text-blue-400 text-sm font-mono">React Native</p>
                     </div>
                   </div>
@@ -270,7 +296,9 @@ export default function Portfolio() {
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-3 bg-emerald-950 text-emerald-400 rounded-lg"><Database size={24}/></div>
                   <div>
-                    <h3 className="text-xl font-bold text-white">Naval Group</h3>
+                    <h3 className="text-xl font-bold text-white">
+                      <ExtLink href="https://www.naval-group.com/fr" className="text-white hover:text-emerald-300">Naval Group</ExtLink>
+                    </h3>
                     <p className="text-emerald-400 text-sm font-mono">Stage Data Manager (4 mois)</p>
                   </div>
                 </div>
@@ -378,7 +406,7 @@ export default function Portfolio() {
               <div className="flex flex-col md:flex-row gap-6 bg-gradient-to-r from-yellow-900/20 to-slate-900/60 p-6 rounded-xl border border-yellow-700/30 hover:border-yellow-500/50 transition-colors">
                 <div className="shrink-0 pt-1"><Award size={32} className="text-yellow-500" /></div>
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-2"><ExtLink href="#">Olympiades Nationales de Mathématiques</ExtLink></h3>
+                  <h3 className="text-xl font-bold text-white mb-2"><ExtLink href="https://www.animath.fr/laureats-des-olympiades-nationales-de-mathematiques/" className="text-white hover:text-yellow-300">Olympiades Nationales de Mathématiques</ExtLink></h3>
                   <p className="text-yellow-400 font-mono text-sm mb-2">Classement Bronze</p>
                   <p className="text-slate-300">Participation au Concours Général de Mathématiques.</p>
                 </div>
@@ -387,7 +415,7 @@ export default function Portfolio() {
               <div className="flex flex-col md:flex-row gap-6 bg-gradient-to-r from-[#FF9900]/10 to-slate-900/60 p-6 rounded-xl border border-[#FF9900]/30 hover:border-[#FF9900]/60 transition-colors">
                 <div className="shrink-0 pt-1"><CloudLightningIcon size={32} className="text-[#FF9900]" /></div>
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-2"><ExtLink href="#">Certification AWS Academy Graduate</ExtLink></h3>
+                  <h3 className="text-xl font-bold text-white mb-2"><ExtLink href="https://aws.amazon.com/fr/training/awsacademy/" className="text-white hover:text-[#FF9900]">Certification AWS Academy Graduate</ExtLink></h3>
                   <p className="text-[#FF9900] font-mono text-sm mb-2">Generative AI Foundations</p>
                   <p className="text-slate-300">Maîtrise des concepts fondamentaux de l'Intelligence Artificielle Générative sur le cloud Amazon Web Services.</p>
                 </div>
@@ -396,7 +424,10 @@ export default function Portfolio() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
                 
                 <div className="bg-slate-900/60 p-6 rounded-xl border border-slate-800">
-                  <h4 className="font-bold text-emerald-400 mb-3 text-lg flex items-center gap-2"><Globe size={20}/> Bureau des Arts (BDA)</h4>
+                  <h4 className="font-bold text-emerald-400 mb-3 text-lg flex items-center gap-2">
+                    <Globe size={20} className="shrink-0"/> 
+                    <ExtLink href="https://www.imt-atlantique.fr/fr/campus/vie-etudiante/associations" className="text-emerald-400 hover:text-emerald-300">Bureau des Arts (BDA)</ExtLink>
+                  </h4>
                   <p className="text-sm text-slate-400 font-mono mb-2">IMT Atlantique • Responsable Com</p>
                   <p className="text-slate-300 text-sm">Création de vidéos et animation d'évènements en direct (réalisé en anglais).</p>
                 </div>
@@ -414,7 +445,10 @@ export default function Portfolio() {
                 </div>
 
                 <div className="bg-slate-900/60 p-6 rounded-xl border border-slate-800">
-                  <h4 className="font-bold text-green-400 mb-3 text-lg flex items-center gap-2"><ShieldAlert size={20}/> Projet Dev. Durable</h4>
+                  <h4 className="font-bold text-green-400 mb-3 text-lg flex items-center gap-2">
+                    <ShieldAlert size={20} className="shrink-0"/> 
+                    <ExtLink href="#" className="text-green-400 hover:text-green-300">Projet Dev. Durable</ExtLink>
+                  </h4>
                   <p className="text-sm text-slate-400 font-mono mb-2">Écologie & Solidarité</p>
                   <p className="text-slate-300 text-sm">Organisation de permanences de dépôt & retrait gratuit d'objets de seconde main.</p>
                 </div>
@@ -425,12 +459,12 @@ export default function Portfolio() {
         </ViewTransition>
 
 
-        {/* ================= VUE : CENTRES D'INTÉRÊTS & CONTACT ================= */}
-        <ViewTransition isVisible={(activeView === 'interets' || activeView === 'contact') && !isTransitioning}>
+        {/* ================= VUE : CENTRES D'INTÉRÊTS & INFOS ================= */}
+        <ViewTransition isVisible={activeView === 'interets' && !isTransitioning}>
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-white mb-10 flex items-center gap-3">
-              {activeView === 'interets' ? <Activity className="text-rose-400" size={32}/> : <MapPin className="text-amber-400" size={32}/>} 
-              {activeView === 'interets' ? "Centres d'intérêt" : "Informations & Contact"}
+              <Activity className="text-rose-400" size={32}/> 
+              Centres d'intérêt & Informations
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
