@@ -262,6 +262,33 @@ export default function Portfolio() {
             </h2>
 
             <div className="grid gap-6">
+
+              <div className="bg-slate-900/60 p-6 rounded-xl border border-slate-800 hover:border-cyan-500/50 transition-all group">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-3 bg-emerald-950 text-emerald-400 rounded-lg"><Database size={24}/></div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white">
+                      <ExtLink href="https://www.naval-group.com/fr" className="text-white hover:text-emerald-300">Naval Group</ExtLink>
+                    </h3>
+                    <p className="text-emerald-400 text-sm font-mono">Stage Data Manager (4 mois)</p>
+                  </div>
+                </div>
+                <p className="text-slate-300">Gestion et architecture des données. Expérience complétée par 2 stages d'observation en entreprise et 1 stage opérateur.</p>
+              </div>
+
+              <div className="bg-slate-900/60 p-6 rounded-xl border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.1)] transition-all group">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-3 bg-green-950 text-green-400 rounded-lg"><Zap size={24}/></div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white">
+                      Projet TIPE - Optimisation du Traffic Urbain
+                    </h3>
+                    <p className="text-green-400 text-sm font-mono">Algorithme d'Analyse & Prédiction</p>
+                  </div>
+                </div>
+                <p className="text-slate-300 mb-3">Création d'un algorithme d'analyse, de prédiction et d'optimisation du trafic urbain en collaboration avec la <ExtLink href="https://www.paris.fr/" className="text-slate-300 hover:text-green-300">Ville de Paris</ExtLink> et <ExtLink href="https://www.velib-metropole.fr/" className="text-slate-300 hover:text-green-300">Vélib Métropole</ExtLink>.</p>
+                <p className="text-slate-400 text-sm font-mono">Travaux d'Initiative Personnels Encadrés (TIPE)</p>
+              </div>
               
               <div className="bg-slate-900/60 p-6 rounded-xl border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.1)] transition-all group">
                 <div className="flex items-center gap-3 mb-4">
@@ -290,19 +317,6 @@ export default function Portfolio() {
                   <span className="text-slate-500 font-mono text-sm bg-slate-950 px-3 py-1 rounded border border-slate-800">2024</span>
                 </div>
                 <p className="text-slate-300">Développement d'une application mobile de covoiturage destinée exclusivement aux étudiants du campus, réalisée avec le framework React Native.</p>
-              </div>
-
-              <div className="bg-slate-900/60 p-6 rounded-xl border border-slate-800 hover:border-cyan-500/50 transition-all group">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-3 bg-emerald-950 text-emerald-400 rounded-lg"><Database size={24}/></div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white">
-                      <ExtLink href="https://www.naval-group.com/fr" className="text-white hover:text-emerald-300">Naval Group</ExtLink>
-                    </h3>
-                    <p className="text-emerald-400 text-sm font-mono">Stage Data Manager (4 mois)</p>
-                  </div>
-                </div>
-                <p className="text-slate-300">Gestion et architecture des données. Expérience complétée par 2 stages d'observation en entreprise et 1 stage opérateur.</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
